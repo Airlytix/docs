@@ -1,23 +1,11 @@
-# Nextra Docs Template 
+# Airlytix Documentation
 
-This is a template for creating documentation with [Nextra](https://nextra.site).
+Welcome to the official GitHub repository for Airlytix documentation. This repository contains comprehensive guides and tutorials for setting up and using the Airlytix environment/air quality sensor with Home Assistant.
 
-[**Live Demo →**](https://nextra-docs-template.vercel.app)
+## Overview
 
-[![](.github/screenshot.png)](https://nextra-docs-template.vercel.app)
+Airlytix is an advanced ESPHome-based environmental and air quality sensor designed to integrate seamlessly with Home Assistant, providing real-time monitoring of various environmental parameters. This documentation aims to assist users in setting up, configuring, and optimizing their Airlytix sensor for the best experience.
 
-## Quick Start
+## Support
 
-Click the button to clone this repository and deploy it on Vercel:
-
-[![](https://vercel.com/button)](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2Fshuding%2Fnextra-docs-template&showOptionalTeamCreation=false)
-
-## Local Development
-
-First, run `pnpm i` to install the dependencies.
-
-Then, run `pnpm dev` to start the development server and visit localhost:3000.
-
-## License
-
-This project is licensed under the MIT License.
+If you need help or have any questions, please open an issue in this repository, and we'll do our best to assist you.
