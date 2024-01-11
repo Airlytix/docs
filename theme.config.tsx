@@ -31,7 +31,7 @@ const config: DocsThemeConfig = {
   },
   head: (
     <>
-      <link rel="icon" type="image/x-icon" href="favicon.ico" />
+      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
       <meta name="description" content="Official documentation for Airlytix, the ESPHome-based environmental and air quality sensor for Home Assistant." />
       <meta name="keywords" content="Airlytix, air quality, environmental sensor, Home Assistant, ESPHome, smart home, IoT" />
