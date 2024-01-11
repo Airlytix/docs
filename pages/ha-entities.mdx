@@ -1,0 +1,100 @@
+# Detailed Guide to Airlytix Entities in Home Assistant
+
+Airlytix provides a comprehensive suite of environmental sensors and state entities in Home Assistant, each offering valuable insights into your indoor environment.
+
+## Controls
+
+### Indicator Light
+
+- **Description**: The 'Indicator Light' entity in Home Assistant allows you to manage the status light on the front of the Airlytix sensor. This feature offers both on/off control and brightness adjustment.
+- **Functionality**:
+  - **On/Off Control**: Toggle the status light to either display the current air quality state or turn it off for a less intrusive presence.
+  - **Brightness Control**: Adjust the brightness of the status light to suit your preference, whether you need it to be more noticeable or subtler.
+- **Status Light Indication**:
+  - **Color Representation**: The status light changes color based on the overall air quality state determined by the Airlytix sensor:
+    - **Green**: Represents a 'Good' air quality state.
+    - **Orange**: Indicates a 'Fair' air quality state.
+    - **Red**: Signals a 'Poor' air quality state.
+
+## Sensors
+
+### Ambient Light
+- **Description**: Measures the level of ambient light. Essential for automating lighting systems and understanding natural light availability.
+- **Healthy Values**: Comfortable levels are typically 300-500 lux for living spaces and 500-1000 lux for work areas.
+
+### Ambient Light CCT (Correlated Color Temperature)
+- **Description**: Indicates the warmth or coolness of ambient light, measured in Kelvin.
+- **Healthy Values**: 2700K-3000K is relaxing, 4000K for general purposes, and 5000K-6500K simulates daylight.
+
+### Ambient Sound Level (LAeq_1min)
+- **Description**: Represents the equivalent continuous sound level over one minute.
+- **Healthy Values**: Indoor levels should ideally be below 50 dB for relaxation.
+
+### Ambient Sound Level (LApeak_1min)
+- **Description**: Measures the peak sound level over one minute.
+- **Healthy Values**: Peak levels should remain below 60 dB to prevent disturbance.
+
+### CO2 (Carbon Dioxide)
+- **Description**: Monitors the concentration of CO2.
+- **Healthy Values**: Ideal levels are below 1000 ppm for comfort, below 800 ppm for cognitive function.
+
+### CO2 State
+- **Description**: Indicates air quality based on CO2 levels with values: good, fair, or poor.
+
+### Humidity
+- **Description**: Measures the moisture content in the air.
+- **Healthy Values**: Ideal indoor humidity is between 30% and 50%.
+
+### Humidity State
+- **Description**: Shows the state of air humidity as good, fair, or poor.
+
+### PM \<10µm Weight Concentration
+- **Importance**: Particulate matter less than 10 micrometers can penetrate deep into the lungs, causing respiratory issues.
+- **Healthy Values**: PM10 levels should ideally be below 50 µg/m³ over a 24-hour period.
+
+### PM \<10µm State
+- Shows the air quality regarding these particles as good, fair, or poor.
+
+### PM \<1µm, \<2.5µm, \<4µm Weight Concentration
+- **Importance**: These smaller particulate matters (especially PM2.5) can enter the bloodstream and are associated with heart and lung diseases.
+- **Healthy Values**: PM2.5 levels should be below 25 µg/m³ over a 24-hour period for good air quality.
+
+### PM \<1µm, \<2.5µm, \<4µm State
+- Shows the air quality regarding these particles as good, fair, or poor.
+
+### Pressure
+- **Description**: Tracks atmospheric pressure.
+- **Healthy Values**: Normal sea-level pressure is around 1013 hPa.
+
+### Temperature
+- **Description**: Measures the ambient temperature.
+- **Healthy Values**: Comfortable room temperature is between 20°C and 22°C.
+
+### Temperature State
+- **Description**: Provides a status of the temperature as good, fair, or poor.
+
+### VOC (Volatile Organic Compounds) Index
+- **What It Is**: The VOC Index is an innovative tool that monitors the conditions of volatile organic compounds more effectively than traditional etVOC concentration outputs. It uses a MOX sensor and processes the raw signal through Sensirion’s Gas Index Algorithm on an external microcontroller.
+- **How It Works**: The VOC Index operates similarly to the human nose. It takes the average air composition (baseline) from the past 24 hours and compares it to the current VOC levels. This moving average serves as an offset.
+- **Reading the Index**: The baseline is mapped to a VOC Index value of 100. An index above 100 indicates more VOCs in the environment compared to the average, likely due to activities like cooking, cleaning, or breathing. An index below 100 suggests fewer VOCs, possibly due to fresh air intake or air purification.
+- **Relative Intensity**: Like human perception of odors, the VOC Index does not provide exact concentrations but rather the relative intensity of VOCs. The index adapts its gain according to VOC events in the past 24 hours, quantifying different VOC conditions on a scale from 1 to 500.
+- **Practical Application**: This scale allows for consistent action triggers based on VOC levels. For example, an air purifier might be programmed to activate when the VOC Index exceeds 150. The gain adaptation feature ensures that the air purifier responds appropriately to various VOC events, even those less sensitive to the sensor, by boosting the signal detection.
+- **Healthy Values**: An index above 100 indicates more VOCs, below 100 suggests fewer VOCs.
+
+
+### VOC State
+- **Description**: Shows the air quality state regarding VOC levels as good, fair, or poor.
+
+### NOx (Nitrogen Oxides) Index
+- **What It Is**: The NOx Index is a specialized tool for monitoring nitrogen oxides (NOx) levels more effectively than conventional concentration outputs. Utilizing a MOX sensor, it responds to oxidizing gases and processes the raw signal via Sensirion’s Gas Index Algorithm on an external microcontroller.
+- **How It Works**: Similar to human perception, the NOx Index compares current NOx levels in a room to the air composition from the past 24 hours (the learning time). This comparison acts as an offset or baseline.
+- **Reading the Index**: The baseline is standardized to an NOx Index value of 1. An index above 1 indicates higher NOx levels compared to the average, which might occur due to activities like cooking with gas. An index close to 1 signifies low or no NOx gases, similar to conditions with fresh air circulation.
+- **Relative Intensity**: The NOx Index conveys the relative intensity of NOx in the environment. Unlike the VOC Index, the NOx Index does not adapt its gain since NOx gas composition variations are usually less significant than VOCs. The index quantifies NOx conditions on a scale from 1 to 500.
+- **Practical Application**: This scale allows for direct actions based on NOx levels. For instance, an air purifier could be set to turn on when the NOx Index exceeds 20. This fixed mapping ensures consistent and appropriate responses to varying NOx conditions.
+- **Healthy Values**: An index above 1 indicates more NOx, while close to 1 signifies low or no NOx gases.
+
+
+### NOX State
+- **Description**: Reflects air quality in terms of NOX concentration with values: good, fair, or poor.
+
+Each of these entities plays a crucial role in monitoring and maintaining a healthy and comfortable indoor environment. Understanding their

@@ -1,0 +1,37 @@
+# Getting Started with Airlytix: Connecting to Home Assistant
+
+The final step before you are ready to go is connecting Airlytix to Home Assistant.
+
+import { Tabs } from "nextra-theme-docs"
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Ensure you have the ESPHome add-on installed in Home Assistant. For more information, see the [getting started guide](https://esphome.io/guides/getting_started_hassio.html).
+</Callout>
+
+{/* prettier-ignore */}
+<Tabs items={['Automatic', 'Manual']}>
+
+  <Tabs.Tab>
+    For most users, Home Assistant will automatically discover and add the Airlytix sensor, thanks to ESPHome's mDNS discovery.
+
+    To add it to Home Assistant, go to 'Settings', then 'Devices and Services'. Here, the Airlytix ES1 should be automatically discovered. Click the 'Configure' button to add it to Home Assistant.
+
+    TODO PICTURE
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    First, determine the IP address of your Airlytix sensor by checking your router's web page.
+
+    Once you have the IP address, navigate to Home Assistant and go to 'Settings', then 'Devices and Services'. Click the 'Add Integration' button in the bottom right corner.
+
+    TODO PICTURE
+
+    Search for ESPHome to add an ESPHome device, and then enter the IP address into the box:
+
+    TODO Picture
+
+    Click 'Submit', and your Airlytix sensor is now connected to Home Assistant.
+  </Tabs.Tab>
+
+</Tabs>

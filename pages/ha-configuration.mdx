@@ -1,0 +1,23 @@
+# Configuring State Entity Ranges in Home Assistant for Airlytix
+
+Airlytix provides various configuration entities in Home Assistant, allowing you to customize the thresholds for state entities like 'Good', 'Fair', and 'Poor'. This guide explains how to configure these thresholds.
+
+## Configuration Entities and Their Purpose
+
+- **Ambient Light Offset**: Adjusts the baseline level for ambient light readings.
+- **CO2 Fair/Good Max/Min**: Sets the upper and lower limits for the 'Fair' and 'Good' CO2 quality ranges.
+- **Humidity Fair/Good Max/Min**: Defines the ranges for 'Fair' and 'Good' humidity levels.
+- **Humidity Offset**: Adjusts the baseline for humidity readings.
+- **NOX Fair/Good Max/Min**: Determines the 'Fair' and 'Good' ranges for NOx levels.
+- **PM \<10µm, \<1µm, \<2.5µm, \<4µm Fair/Good Max/Min**: Configures the fair and good thresholds for particulate matters of different sizes.
+- **Temperature Fair/Good Max/Min**: Establishes the fair and good temperature ranges.
+- **Temperature Offset**: Adjusts the baseline level for temperature readings.
+- **VOC Fair/Good Max/Min**: Sets the fair and good thresholds for VOC Index.
+
+## Tips for Configuration
+
+- **Understand the Environment**: Know the typical ranges of these parameters in your environment to set realistic and effective thresholds.
+- **Consult Guidelines**: Refer to environmental health guidelines to understand what constitutes 'Good', 'Fair', or 'Poor' air quality.
+- **Regular Review**: Periodically review and adjust these values based on changes in your environment or updated health standards.
+
+By fine-tuning these configuration entities, you can tailor the Airlytix system to accurately reflect the air quality and environmental conditions of your specific setting in Home Assistant.
