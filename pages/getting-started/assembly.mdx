@@ -21,3 +21,161 @@ import Image from 'next/image'
 
     </div>
 </>
+
+import { Tabs } from "nextra-theme-docs"
+
+<Tabs items={['With Case', 'Printing Own Case']}>
+
+  <Tabs.Tab>
+
+## Parts
+
+{
+<table>
+  <tbody>
+    <tr>
+      <td width={"20%"}>
+      <Image src="/part-front.png" width={128} height={128} />
+      </td>
+      <td width={"20%"}>
+      <Image src="/part-body.png" width={128} height={128} />
+      </td>
+      <td width={"20%"}>
+      <Image src="/part-wall-clip.png" width={128} height={128} />
+      </td>
+      <td width={"20%"}>
+      <Image src="/part-pcb.png" width={128} height={128} />
+      </td>
+      <td width={"20%"}>
+      <Image src="/part-sen55.png" width={128} height={128} />
+      </td>
+    </tr>
+    <tr>
+      <td width={"20%"}>
+      1 Case Front
+      </td>
+      <td width={"20%"}>
+      1 Case Body
+      </td>
+      <td width={"20%"}>
+      1 Wall Mount
+      </td>
+      <td width={"20%"}>
+      1 PCB
+      </td>
+      <td width={"20%"}>
+      1 Sensor Module
+      </td>
+    </tr>
+    <tr>
+      <td width={"20%"}>
+      <Image src="/part-light-pipe.png" width={128} height={128} />
+      </td>
+      <td width={"20%"}>
+      <Image src="/part-screw-20mm.png" width={128} height={128} />
+      </td>
+      <td width={"20%"}>
+      <Image src="/part-screw-4mm.png" width={128} height={128} />
+      </td>
+      <td width={"20%"}>
+      <Image src="/part-screw-4mm.png" width={128} height={128} />
+      </td>
+    </tr>
+    <tr>
+      <td width={"20%"}>
+      1 Light Guide
+      </td>
+      <td width={"20%"}>
+      2 M1.6x20mm Screws
+      </td>
+      <td width={"20%"}>
+      1 M1.6x4mm Screw
+      </td>
+      <td width={"20%"}>
+      1 Connector Cable
+      </td>
+    </tr>
+  </tbody>
+</table>
+}
+
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+
+## Parts
+
+{
+<table>
+  <tbody>
+    <tr>
+      <td width={"20%"}>
+      <Image src="/part-pcb.png" width={128} height={128} />
+      </td>
+      <td width={"20%"}>
+      <Image src="/part-sen55.png" width={128} height={128} />
+      </td>
+      <td width={"20%"}>
+      <Image src="/part-light-pipe.png" width={128} height={128} />
+      </td>
+      <td width={"20%"}>
+      <Image src="/part-screw-20mm.png" width={128} height={128} />
+      </td>
+      <td width={"20%"}>
+      <Image src="/part-screw-4mm.png" width={128} height={128} />
+      </td>
+    </tr>
+    <tr>
+      <td width={"20%"}>
+      1 PCB
+      </td>
+      <td width={"20%"}>
+      1 Sensor Module
+      </td>
+      <td width={"20%"}>
+      1 Light Guide
+      </td>
+      <td width={"20%"}>
+      2 M1.6x20mm Screws
+      </td>
+      <td width={"20%"}>
+      1 M1.6x4mm Screw
+      </td>
+    </tr>
+    <tr>
+      <td width={"20%"}>
+      <Image src="/part-screw-4mm.png" width={128} height={128} />
+      </td>
+      <td width={"20%"}>
+      <Image src="/part-threaded-insert.png" width={128} height={128} />
+      </td>
+    </tr>
+    <tr>
+      <td width={"20%"}>
+      1 Connector Cable
+      </td>
+      <td width={"20%"}>
+      3 M1.6x3mm Threaded Inserts
+      </td>
+    </tr>
+  </tbody>
+</table>
+}
+
+## Printing The Case
+
+
+  </Tabs.Tab>
+</Tabs>
+
+
+
+## Assembly Steps
+
+1. Press the light guide into the case front
+2. Attach the connector cable to the PCB
+3. Place the PCB into the case front and secure with the M1.6x4mm screw
+4. Connect the other end of the connector cable to the sensor module
+5. Place the sensor module into the case body
+6. Screw together the case front and back using the two M1.6x20mm screws
+7. Place the wall mount into the back of the case
