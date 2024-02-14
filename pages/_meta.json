@@ -8,5 +8,11 @@
     "title": "Home Assistant"
   },
   "ha-entities":"Entities",
-  "ha-configuration":"Configuration"
+  "ha-configuration":"Configuration",
+  "buy-now": {
+    "title": "Buy Now",
+    "type": "page",
+    "href": "https://lectronz.com/products/airlytix-es1-esphome-smart-air-quality-sensor",
+    "newWindow": true
+  }
 }

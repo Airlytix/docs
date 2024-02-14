@@ -22,7 +22,7 @@ import Image from 'next/image'
     </div>
 </>
 
-import { Tabs } from "nextra-theme-docs"
+import { Tabs,Steps } from "nextra-theme-docs"
 
 <Tabs items={['With Case', 'Printing Own Case']}>
 
@@ -78,7 +78,7 @@ import { Tabs } from "nextra-theme-docs"
       <Image src="/part-screw-4mm.png" width={128} height={128} />
       </td>
       <td width={"20%"}>
-      <Image src="/part-screw-4mm.png" width={128} height={128} />
+      <Image src="/part-connector-cable.png" width={128} height={128} />
       </td>
     </tr>
     <tr>
@@ -144,7 +144,7 @@ import { Tabs } from "nextra-theme-docs"
     </tr>
     <tr>
       <td width={"20%"}>
-      <Image src="/part-screw-4mm.png" width={128} height={128} />
+      <Image src="/part-connector-cable.png" width={128} height={128} />
       </td>
       <td width={"20%"}>
       <Image src="/part-threaded-insert.png" width={128} height={128} />
@@ -218,10 +218,34 @@ import { Tabs } from "nextra-theme-docs"
 
 ## Assembly Steps
 
-1. Press the light guide into the case front
-2. Attach the connector cable to the PCB
-3. Place the PCB into the case front and secure with the M1.6x4mm screw
-4. Connect the other end of the connector cable to the sensor module
-5. Place the sensor module into the case body
-6. Screw together the case front and back using the two M1.6x20mm screws
-7. Place the wall mount into the back of the case
+<Steps>
+
+### Press the light guide into the case front
+
+  <Image src="/assembly-step1.png" width={512} height={512} />
+
+### Attach the connector cable to the PCB
+  
+  <Image src="/assembly-step2.png" width={512} height={512} />
+
+### Place the PCB into the case front and secure with the M1.6x4mm screw
+  
+  <Image src="/assembly-step3.png" width={512} height={512} />
+
+### Connect the other end of the connector cable to the sensor module
+
+  <Image src="/assembly-step4.png" width={512} height={512} />
+
+### Place the sensor module into the case body
+
+  <Image src="/assembly-step5.png" width={512} height={512} />
+
+### Screw together the case front and back using the two M1.6x20mm screws
+
+  <Image src="/assembly-step6.png" width={512} height={512} />
+
+### Place the wall mount into the back of the case
+
+  <Image src="/assembly-step7.png" width={512} height={512} />
+
+</Steps>
