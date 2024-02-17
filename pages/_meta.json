@@ -14,5 +14,8 @@
     "type": "page",
     "href": "https://lectronz.com/products/airlytix-es1-esphome-smart-air-quality-sensor",
     "newWindow": true
+  },
+  "cookies": {
+    "display": "hidden"
   }
 }

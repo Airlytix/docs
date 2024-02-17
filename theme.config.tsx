@@ -5,14 +5,13 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import CookieConsent from "react-cookie-consent";
 import GoogleAnalytics from './components/googleanalytics'
+import Link from 'next/link'
 
 declare global {
   interface Window {
     gtag: any;
   }
 }
-
-
 
 const main = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -38,7 +37,7 @@ const main = ({ children }: { children: React.ReactNode }) => (
     });
   }}
 >
-  This website uses cookies to enhance the user experience.{" "}
+  This website uses <Link href="/cookies">cookies</Link> to enhance the user experience.{" "}
 </CookieConsent>
   </>
 );
@@ -59,7 +58,11 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase: 'https://github.com/airlytix/docs',
   footer: {
-    text: 'Airlytix Docs',
+    text: (
+      <>
+      <Link href="/cookies">Cookie Policy</Link> 
+      </>
+    ),
   },
   useNextSeoProps() {
     const { asPath } = useRouter()
