@@ -1,7 +1,41 @@
 import React from 'react'
+import {FC} from 'react'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import CookieConsent from "react-cookie-consent";
+import GoogleAnalytics from './components/googleanalytics'
+
+
+
+const main = ({ children }: { children: React.ReactNode }) => (
+  <>
+    <GoogleAnalytics GA_MEASUREMENT_ID='G-0PB9M211PH'/>
+    {children}
+
+    <CookieConsent
+  location="bottom"
+  buttonText="Allow Cookies"
+  declineButtonText="Decline"
+  enableDeclineButton
+  style={{ background: "#2B373B" }}
+  buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
+  expires={150}
+  onAccept={() => {
+    window.gtag("consent", 'update', {
+      'analytics_storage': "granted"
+    });
+  }}
+  onDecline={() => {
+    window.gtag("consent", 'update', {
+      'analytics_storage': "denied"
+    });
+  }}
+>
+  This website uses cookies to enhance the user experience.{" "}
+</CookieConsent>
+  </>
+);
 
 const config: DocsThemeConfig = {
   logo: (
@@ -44,7 +78,8 @@ const config: DocsThemeConfig = {
       
       <script type="module" src="https://unpkg.com/esp-web-tools@9/dist/web/install-button.js?module"></script>
     </>
-  )
+  ),
+  main: main
 }
 
 export default config
