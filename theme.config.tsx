@@ -6,6 +6,12 @@ import { useRouter } from 'next/router'
 import CookieConsent from "react-cookie-consent";
 import GoogleAnalytics from './components/googleanalytics'
 
+declare global {
+  interface Window {
+    gtag: any;
+  }
+}
+
 
 
 const main = ({ children }: { children: React.ReactNode }) => (
