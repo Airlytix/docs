@@ -84,6 +84,17 @@ const config: DocsThemeConfig = {
       <meta property="og:title" content="Airlytix Documentation" />
       <meta property="og:description" content="Learn how to set up and use your Airlytix sensor for optimal air quality monitoring in your smart home." />
       <meta property="og:url" content="https://docs.airlytix.io" />
+      <meta property="og:image" content="/preview-image.png" />
+      <meta property="og:image:type" content="image/png" />
+      <meta property="og:image:width" content="1120" />
+      <meta property="og:image:height" content="630" />
+
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:url" content="https://docs.airlytix.io/" />
+      <meta property="twitter:title" content="Airlytix documentation – Airlytix" />
+      <meta property="twitter:description" content="Official documentation for Airlytix, the ESPHome-based environmental and air quality sensor for Home Assistant." />
+      <meta property="twitter:image" content="/preview-image.png" />
+
       
       <script type="module" src="https://unpkg.com/esp-web-tools@9/dist/web/install-button.js?module"></script>
     </>
