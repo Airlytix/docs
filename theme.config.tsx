@@ -60,7 +60,20 @@ const config: DocsThemeConfig = {
   footer: {
     text: (
       <>
-      <Link href="/cookies">Cookie Policy</Link> 
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+        <Link href="/cookies" style={{ marginRight: 'auto' }}>Cookie Policy</Link>
+        <div style={{ marginLeft: 'auto' }}>
+          <picture>
+            <source srcSet="/made-for-esphome-white-on-black.png" media="(prefers-color-scheme: dark)" />
+            <img
+                src="/made-for-esphome-black-on-white.png"
+                alt="Made for ESPHome"
+                width="230"
+                height="75"
+            />
+          </picture>
+        </div>
+      </div>
       </>
     ),
   },
