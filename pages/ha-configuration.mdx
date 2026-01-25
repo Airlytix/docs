@@ -1,23 +1,196 @@
-# Configuring State Entity Ranges in Home Assistant for Airlytix
+# Configuring ES1 thresholds and offsets
 
-Airlytix provides various configuration entities in Home Assistant, allowing you to customize the thresholds for state entities like 'Good', 'Fair', and 'Poor'. This guide explains how to configure these thresholds.
+ES1 exposes a set of configuration entities in Home Assistant so you can adjust what counts as `good`, `fair`, or `poor` and calibrate readings to your environment.
 
-## Configuration Entities and Their Purpose
+These entities are available under the ES1 device in Home Assistant as `number` entities.
 
-- **Ambient Light Offset**: Adjusts the baseline level for ambient light readings.
-- **CO2 Fair/Good Max/Min**: Sets the upper and lower limits for the 'Fair' and 'Good' CO2 quality ranges.
-- **Humidity Fair/Good Max/Min**: Defines the ranges for 'Fair' and 'Good' humidity levels.
-- **Humidity Offset**: Adjusts the baseline for humidity readings.
-- **NOX Fair/Good Max/Min**: Determines the 'Fair' and 'Good' ranges for NOx levels.
-- **PM \<10µm, \<1µm, \<2.5µm, \<4µm Fair/Good Max/Min**: Configures the fair and good thresholds for particulate matters of different sizes.
-- **Temperature Fair/Good Max/Min**: Establishes the fair and good temperature ranges.
-- **Temperature Offset**: Adjusts the baseline level for temperature readings.
-- **VOC Fair/Good Max/Min**: Sets the fair and good thresholds for VOC Index.
+## How configuration affects State and the indicator light
 
-## Tips for Configuration
+For each major measurement, ES1 uses four threshold values:
 
-- **Understand the Environment**: Know the typical ranges of these parameters in your environment to set realistic and effective thresholds.
-- **Consult Guidelines**: Refer to environmental health guidelines to understand what constitutes 'Good', 'Fair', or 'Poor' air quality.
-- **Regular Review**: Periodically review and adjust these values based on changes in your environment or updated health standards.
+- `… good min` and `… good max`
+- `… fair min` and `… fair max`
 
-By fine-tuning these configuration entities, you can tailor the Airlytix system to accurately reflect the air quality and environmental conditions of your specific setting in Home Assistant.
+When a new reading comes in, ES1 compares it to these values:
+
+- Inside the **Good** range → per‑sensor state = `good`.
+- Inside the **Fair** range but outside Good → per‑sensor state = `fair`.
+- Outside the Fair range → per‑sensor state = `poor`.
+
+The overall `State` entity then combines all per‑sensor states, and the front indicator light mirrors that overall state (green / orange / red). Changing thresholds changes when each state is reached.
+
+Offsets are applied before thresholds are evaluated. They are simple additive corrections used for calibration.
+
+> The firmware file `configuration/airlytix-es1.yaml` is the canonical source for exact defaults. The values below summarise those defaults.
+
+## Offsets (calibration)
+
+These entities adjust readings without changing the underlying sensor calibration.
+
+- **Temperature Offset** (`Temperature Offset`)
+  - Unit: °C
+  - Default: `0`
+  - Effect: `Temperature` reading = measured temperature + offset.
+  - Example: If ES1 is consistently 1.5°C warmer than a trusted thermometer, set this to `-1.5`.
+
+- **Humidity Offset** (`Humidity Offset`)
+  - Unit: % relative humidity
+  - Default: `0`
+  - Effect: `Humidity` reading = measured humidity + offset.
+  - Example: If ES1 reads 8% lower than a known-accurate hygrometer, set this to `+8`.
+
+- **Ambient Light Offset** (`Ambient Light Offset`)
+  - Unit: lux
+  - Default: `0`
+  - Effect: `Ambient Light` reading = measured lux + offset.
+  - Use this if you know ES1 is shaded or behind glass and you want to compensate slightly in automations.
+
+Offsets are a good fit when ES1 is generally accurate but you want to line it up with another instrument or compensate for a specific mounting location.
+
+## Temperature thresholds
+
+Entities:
+
+- `Temperature Good Min`
+- `Temperature Good Max`
+- `Temperature Fair Min`
+- `Temperature Fair Max`
+
+Defaults:
+
+- Good: **17–23°C**
+- Fair: **13–24°C**
+- Outside 13–24°C → `Temperature State` = `poor`.
+
+Ideas for tuning:
+
+- In a warmer climate, you might increase `Temperature Good Max` to **25–26°C** so normal days still show as Good.
+- In a nursery or bedroom, you might narrow the Good band to your ideal sleeping temperature.
+
+## Humidity thresholds
+
+Entities:
+
+- `Humidity Good Min`
+- `Humidity Good Max`
+- `Humidity Fair Min`
+- `Humidity Fair Max`
+
+Defaults:
+
+- Good: **30–60%**
+- Fair: **25–70%**
+- Outside 25–70% → `Humidity State` = `poor`.
+
+Ideas for tuning:
+
+- If you live in a very dry climate, you may widen the Fair band on the low side so the indicator does not stay Poor all winter.
+- For mould‑prone spaces (bathrooms, basements), consider lowering `Humidity Good Max` to around **55%**.
+
+## CO2 thresholds
+
+Entities:
+
+- `CO2 Good Min`
+- `CO2 Good Max`
+- `CO2 Fair Min`
+- `CO2 Fair Max`
+
+Defaults (ppm):
+
+- Good: **0–1000 ppm**
+- Fair: **1000–1500 ppm**
+- Above 1500 ppm → `CO2 State` = `poor`.
+
+Ideas for tuning:
+
+- If you are sensitive to stale air, reduce `CO2 Good Max` to **800–900 ppm** to be alerted earlier.
+- For less strict environments, you can raise `CO2 Fair Max` slightly to reduce how often the state becomes Poor.
+
+## Particulate matter (PM) thresholds
+
+For each PM channel there is a set of Good/Fair thresholds. The most commonly used is PM2.5.
+
+Example entities (PM2.5):
+
+- `PM <2.5µm Good Min`
+- `PM <2.5µm Good Max`
+- `PM <2.5µm Fair Min`
+- `PM <2.5µm Fair Max`
+
+Defaults for PM2.5:
+
+- Good: **0–20**
+- Fair: **20–50**
+- Above 50 → `PM <2.5µm State` = `poor`.
+
+Ideas for tuning:
+
+- If you live in a very clean air area, you may narrow the Good band (e.g. 0–15) to detect even small increases.
+- If outdoor PM is frequently high, you may widen the Fair band so the indicator does not stay Poor all the time.
+
+Other PM channels (PM1.0, PM4.0, PM10) follow the same structure with different defaults taken from the firmware.
+
+## VOC index thresholds
+
+Entities:
+
+- `VOC Good Min`
+- `VOC Good Max`
+- `VOC Fair Min`
+- `VOC Fair Max`
+
+Defaults (index value):
+
+- Good: **0–150**
+- Fair: **150–250**
+- Above 250 → `VOC State` = `poor`.
+
+Ideas for tuning:
+
+- If you use ES1 near strong VOC sources (cleaners, paints, frequent cooking), you may widen the Fair band so the indicator does not stay Poor whenever those activities occur.
+- If you want stricter alerts, lower `VOC Good Max` so ES1 flags smaller increases.
+
+## NOx index thresholds
+
+Entities:
+
+- `NOX Good Min`
+- `NOX Good Max`
+- `NOX Fair Min`
+- `NOX Fair Max`
+
+Defaults (index value):
+
+- Good: **0–20**
+- Fair: **20–100**
+- Above 100 → `NOX State` = `poor`.
+
+Ideas for tuning:
+
+- In kitchens with gas hobs, you may want stricter thresholds so extraction runs earlier when cooking.
+- In cleaner environments, the defaults are usually a good starting point.
+
+## General guidance
+
+- Make small changes and observe how often each State changes over several days before adjusting further.
+- Avoid setting Good/Fair ranges so narrow that the device reports `poor` almost all the time, or so wide that everything is always `good`.
+- When in doubt, you can always refer back to the defaults in `configuration/airlytix-es1.yaml` or re‑apply those ranges manually.
+
+## Default threshold reference
+
+The table below summarises the default Good and Fair ranges configured in the ES1 firmware. Values outside the Fair range are treated as Poor.
+
+| Metric            | Good min | Good max | Fair min | Fair max | Units   |
+|-------------------|---------:|---------:|---------:|---------:|---------|
+| Temperature       |     17   |     23   |     13   |     24   | °C      |
+| Humidity          |     30   |     60   |     25   |     70   | %       |
+| CO2               |      0   |   1000   |   1000   |   1500   | ppm     |
+| PM1.0             |      0   |     10   |     10   |     40   | µg/m³*  |
+| PM2.5             |      0   |     20   |     20   |     50   | µg/m³*  |
+| PM4.0             |      0   |     30   |     30   |     90   | µg/m³*  |
+| PM10              |      0   |     40   |     40   |    100   | µg/m³*  |
+| VOC index         |      0   |    150   |    150   |    250   | index   |
+| NOx index         |      0   |     20   |     20   |    100   | index   |
+
+\* ES1 reports “weight concentration” based on the optical PM sensor’s scattering signal. The units are expressed as µg/m³‑equivalent.

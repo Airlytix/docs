@@ -1,6 +1,14 @@
 # Getting Started with Airlytix: Connecting to WiFi
 
-Connecting your Airlytix sensor to your WiFi network is a crucial first step. You can choose from three methods to achieve this connection:
+Connecting your Airlytix sensor to your WiFi network is a crucial first step. You can choose from three methods to achieve this connection.
+
+ES1 connects to **2.4 GHz** WiFi networks only. Dual‑band routers with a single SSID are usually fine; very old 5 GHz‑only networks are not supported.
+
+For most users, we recommend trying the options in this order:
+
+- **Using Your Browser** – easiest if you have a computer with Chrome or Edge and a USB cable.
+- **Via Airlytix WiFi Hotspot** – best if you prefer using a phone/tablet and do not want to connect by USB.
+- **Using Home Assistant Bluetooth** – useful if your Home Assistant installation has Bluetooth and you want to provision over BLE.
 
 import { Tabs } from "nextra-theme-docs"
 import { Callout } from 'nextra/components'
@@ -27,21 +35,31 @@ import { Callout } from 'nextra/components'
         </Callout>
       </span>
     </esp-web-install-button>
+
+    You are done when the installer reports success and the device restarts. After a short time, ES1 should appear in Home Assistant for integration.
+
+    If the installer reports success but ES1 does not appear in Home Assistant after a few minutes, double‑check that the WiFi name and password were entered correctly and that your Home Assistant instance is on the same network.
   </Tabs.Tab>
 
   <Tabs.Tab>
     1. **Power Up Your Device**: Plug your Airlytix sensor into a USB power supply.
-    2. **Connect to the Hotspot**: On your device, navigate to WiFi settings and search for a network named “airlytix-es1-xxxxxx”. Connect to this network.
+    2. **Connect to the Hotspot**: On your device, navigate to WiFi settings and search for a network named "airlytix-es1-xxxxxx". Connect to this network.
     3. **Access the Setup Page**: A setup page should automatically open in your browser. If it doesn't, go to 192.168.4.1.
     4. **Enter WiFi Credentials**: On the setup page, select your home WiFi network and input the password.
-    5. **Complete the Connection**: Click 'Connect' to join your home WiFi network. Your Airlytix will restart to finalize the connection.
+    5. **Complete the Connection**: Click "Connect" to join your home WiFi network. Your Airlytix will restart to finalize the connection.
+
+    You are done when the device reports it has connected and then restarts. After it joins your home WiFi, it will be available for discovery in Home Assistant.
+
+    If the device reports an error when connecting, verify that you are using the correct 2.4 GHz network name and password, then try again.
   </Tabs.Tab>
 
   <Tabs.Tab>
     1. **Power Up Your Device**: Connect your Airlytix sensor to a USB power supply.
     2. **Ensure Bluetooth is Enabled**: Activate Bluetooth on your Home Assistant server.
-    3. **Navigate to Integrations**: In Home Assistant, go to 'Settings', then 'Devices & Services'.
-    4. **Configure Your Device**: Your Airlytix should appear as discovered (Improv via BLE). Click 'Configure' and follow the prompts to connect it to your WiFi.
+    3. **Navigate to Integrations**: In Home Assistant, go to "Settings", then "Devices & Services".
+    4. **Configure Your Device**: Your Airlytix should appear as discovered (Improv via BLE). Click "Configure" and follow the prompts to connect it to your WiFi.
+
+    You are done when the Improv flow confirms WiFi has been configured and the device appears as an ESPHome device in Home Assistant.
   </Tabs.Tab>
 
 </Tabs>

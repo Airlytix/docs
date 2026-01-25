@@ -1,0 +1,111 @@
+# Troubleshooting ES1
+
+This page covers common issues when setting up or using your Airlytix ES1 and how to fix them.
+
+If you are just getting started, you may also want to review:
+
+- [Connecting to WiFi](/getting-started/wifi)
+- [Connecting to Home Assistant](/getting-started/ha)
+
+## Power and hardware
+
+### ES1 does not power on
+
+- Use a known‑good USB‑C cable and power supply (at least 5 V / 1 A).
+- Check that the USB‑C connector is fully seated in the ES1.
+- Look for any sign of life when plugged in (status LED, indicator light flash).
+
+If there is no sign of power with multiple cables and supplies, the device may be faulty and you should contact support.
+
+## WiFi setup problems
+
+### I cannot see the ES1 WiFi hotspot
+
+- Make sure ES1 is powered from a reliable USB power supply.
+- Wait at least 30–60 seconds after plugging it in.
+- Look for a network named `airlytix-es1-xxxxxx` in your device’s WiFi list.
+- Move closer to the device and refresh the WiFi list.
+
+If the hotspot still does not appear, try the browser installer method from a computer with a USB cable and a supported browser.
+
+### The captive portal page does not load
+
+- After connecting to the `airlytix-es1-xxxxxx` network, some devices open the portal automatically.
+- If it does not open, manually visit `http://192.168.4.1` in your browser.
+- Disable mobile data while connected to the ES1 hotspot so your device does not prefer mobile internet.
+
+### The web installer cannot find my ES1
+
+- Use a recent version of Chrome or Edge on desktop.
+- Check that the USB cable supports data (not just charging).
+- When prompted, select the `CP2102N USB to UART Bridge Controller` device.
+
+If the installer still cannot connect, try a different USB cable or port, or use the hotspot method instead.
+
+## Home Assistant discovery problems
+
+### ES1 does not show up automatically in Home Assistant
+
+- Confirm ES1 is connected to your home WiFi (see the WiFi section above).
+- Ensure ES1 and Home Assistant are on the same network/subnet.
+- Restart ES1 by unplugging and re‑plugging USB power.
+- In Home Assistant, go to "Settings" → "Devices & Services" and click "Check for new devices" if available.
+
+If Home Assistant is running on a different VLAN or network segment, automatic discovery may be blocked. In that case, add ES1 manually using the ESPHome integration and IP address.
+
+If ES1 is still not discovered, you can add it manually using the ESPHome integration and the device’s IP address.
+
+### I do not know the IP address of ES1
+
+- Check your router’s DHCP or client list for a device named `airlytix-es1-xxxxxx`.
+- If you used the web installer, it may show the IP address at the end of the process.
+
+Once you have the IP address, follow the "Manual" tab on the [Connecting to Home Assistant](/getting-started/ha) page.
+
+## Sensor readings look wrong
+
+### Readings seem offset compared to another device
+
+- Small differences between sensors are normal, especially for temperature and humidity.
+- For larger or consistent differences, consider using the offset entities on the [Configuration](/ha-configuration) page:
+  - `Temperature Offset`
+  - `Humidity Offset`
+  - `Ambient Light Offset`
+- Adjust in small steps and compare over several hours.
+
+### Everything is always showing as Poor
+
+- Check the Good and Fair ranges on the [Configuration](/ha-configuration) page.
+- If you have set very tight ranges, ES1 may classify normal conditions as Poor.
+- Start from the firmware defaults and then adjust gradually.
+
+If you live in an area with consistently poor outdoor air quality or high background VOC/NOx, you may need to widen the Fair band so that "poor" really indicates conditions you care about.
+
+### VOC or NOx values seem unstable at first
+
+- VOC and NOx indices use Sensirion’s learning algorithms and need time to stabilise.
+- Expect readings to settle over the first few hours to days after installation or after large changes in environment.
+- Avoid judging long‑term behaviour from only the first few minutes of data.
+
+If values remain unusually high or low after several days, try:
+
+- Ensuring ES1 sees fresh outdoor‑like air for at least 30–60 minutes (open windows or move the device temporarily).
+- Power‑cycling ES1 so the algorithm can restart with the improved baseline.
+
+## Indicator light issues
+
+### The indicator light is off
+
+- In Home Assistant, check the `Indicator Light` entity:
+  - Ensure it is turned on.
+  - Increase brightness if it is set very low.
+- If you prefer a dark room at night, you can turn this entity off without affecting sensor readings.
+
+### The indicator light colour does not match my expectations
+
+- Check the `State` entity in Home Assistant:
+  - `good` → green, `fair` → orange, `poor` → red.
+- If the `State` is often `poor`, review your thresholds on the [Configuration](/ha-configuration) page.
+- Make sure ES1 has had enough time to collect data after power‑on, especially for VOC and NOx.
+
+If you still have problems after trying these steps, you can open an issue in the Airlytix documentation repository with details about your setup and what you are seeing.

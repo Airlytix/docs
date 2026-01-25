@@ -1,6 +1,6 @@
 # Getting Started with Airlytix: Connecting to Home Assistant
 
-The final step before you are ready to go is connecting Airlytix to Home Assistant.
+Once your ES1 is connected to WiFi, the final step is to add it to Home Assistant so you can see all sensor readings, the overall State, and control the indicator light.
 
 import { Tabs } from "nextra-theme-docs"
 import { Callout } from 'nextra/components'
@@ -16,23 +16,67 @@ import Image from 'next/image'
   <Tabs.Tab>
     For most users, Home Assistant will automatically discover and add the Airlytix sensor, thanks to ESPHome's mDNS discovery.
 
-    To add it to Home Assistant, go to 'Settings', then 'Devices and Services'. Here, the Airlytix ES1 should be automatically discovered. Click the 'Configure' button to add it to Home Assistant.
+    1. In Home Assistant, go to "Settings" → "Devices & Services".
+    2. Look for a discovered device named something like "Airlytix ES1" or "airlytix-es1-xxxxxx".
+    3. Click the "Configure" button and follow the prompts to add it to Home Assistant.
 
     <Image src="/device-discovered.png" width={330} height={253} />
   </Tabs.Tab>
 
   <Tabs.Tab>
-    First, determine the IP address of your Airlytix sensor by checking your router's web page.
+    First, determine the IP address of your Airlytix sensor by checking your router's web page or DHCP lease list.
 
-    Once you have the IP address, navigate to Home Assistant and go to 'Settings', then 'Devices and Services'. Click the 'Add Integration' button in the bottom right corner.
+    1. In Home Assistant, go to "Settings" → "Devices & Services".
+    2. Click the "Add Integration" button in the bottom right corner.
 
     <Image src="/add-integration.png" width={305} height={152} />
 
-    Search for ESPHome to add an ESPHome device, and then enter the IP address into the box:
+    3. Search for "ESPHome" to add an ESPHome device, and then enter the IP address into the box:
 
     <Image src="/setup-integration.png" width={479} height={206} />
 
-    Click 'Submit', and your Airlytix sensor is now connected to Home Assistant.
+    4. Click "Submit". Your Airlytix sensor is now connected to Home Assistant.
   </Tabs.Tab>
 
 </Tabs>
+
+## Verify ES1 in Home Assistant
+
+After adding the integration, open the ES1 device page in Home Assistant and confirm that:
+
+- You can see key sensor entities such as `Temperature`, `Humidity`, `CO2`, and `Pressure`.
+- A `State` entity is present and shows `good`, `fair`, or `poor`.
+- The `Indicator Light` entity appears and can be turned on or off.
+
+As a quick sanity check, you can:
+
+- Breathe near the device or open a window and watch `CO2`, `VOC`, or `PM` values change over the next few minutes.
+- Confirm that the indicator light colour matches the overall `State` value.
+
+## Next steps in Home Assistant
+
+After ES1 is connected and verified, you may want to:
+
+- Assign ES1 to an Area (for example, "Living Room" or "Bedroom") so it appears in the right place in your dashboards.
+- Rename key entities (`Temperature`, `Humidity`, `CO2`, `State`, `Indicator Light`) to friendly names that match your home.
+- Add a simple Lovelace card that shows the `State` entity, a few core sensor values, and the `Indicator Light` control.
+
+### Example Lovelace card
+
+Here is a simple entities card that highlights ES1:
+
+```yaml
+type: entities
+title: Airlytix ES1
+entities:
+  - entity: sensor.state
+    name: Air quality
+  - entity: sensor.temperature
+  - entity: sensor.humidity
+  - entity: sensor.co2
+  - entity: sensor.pm_2_5_weight_concentration
+  - entity: sensor.voc
+  - entity: light.indicator_light
+```
+
+Depending on your Home Assistant setup, your entity IDs may be prefixed (for example `sensor.airlytix_es1_state`). Adjust the `entity` values above to match what you see on the ES1 device page.

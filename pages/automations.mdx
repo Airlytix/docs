@@ -1,0 +1,210 @@
+# Automation ideas for ES1
+
+This page shows a few example automations you can build in Home Assistant with ES1. You can adapt the YAML examples directly or convert them into blueprints.
+
+Before you start, make sure ES1 is connected to Home Assistant and that you can see entities such as `State`, `CO2`, `PM <2.5µm Weight concentration`, `VOC`, and `Indicator Light`.
+
+## Use the overall State as a traffic light
+
+The simplest way to automate on air quality is to use the overall `State` entity.
+
+### Example: notify when air quality becomes poor
+
+This automation sends a notification when overall air quality changes to `poor`.
+
+```yaml
+alias: "ES1 – Notify when air quality is poor"
+trigger:
+  - platform: state
+    entity_id: sensor.state
+    to: "poor"
+condition: []
+action:
+  - service: notify.mobile_app_your_phone
+    data:
+      title: "Air quality alert"
+      message: "Air quality is poor according to ES1. Consider opening a window or increasing ventilation."
+mode: single
+```
+
+If your `State` entity has a different ID (for example `sensor.airlytix_es1_state`), replace `sensor.state` with that value.
+
+## Control ventilation based on CO2
+
+### Example: boost ventilation when CO2 is high
+
+This automation turns on a fan when CO2 is high and turns it off again when levels recover.
+
+```yaml
+alias: "ES1 – Ventilation based on CO2"
+trigger:
+  - platform: numeric_state
+    entity_id: sensor.co2
+    above: 1200
+  - platform: numeric_state
+    entity_id: sensor.co2
+    below: 900
+condition: []
+action:
+  - choose:
+      - conditions:
+          - condition: numeric_state
+            entity_id: sensor.co2
+            above: 1200
+        sequence:
+          - service: switch.turn_on
+            target:
+              entity_id: switch.ventilation_fan
+      - conditions:
+          - condition: numeric_state
+            entity_id: sensor.co2
+            below: 900
+        sequence:
+          - service: switch.turn_off
+            target:
+              entity_id: switch.ventilation_fan
+mode: restart
+```
+
+You can also use `CO2 State` instead of raw ppm if you prefer to base decisions on the configured Good/Fair/Poor bands.
+
+## React to PM2.5 spikes
+
+### Example: run air purifier on PM2.5
+
+This automation turns on an air purifier when PM2.5 is poor and turns it off once it returns to good.
+
+```yaml
+alias: "ES1 – Purifier on PM2.5"
+trigger:
+  - platform: state
+    entity_id: sensor.pm_2_5_state
+    to: "poor"
+  - platform: state
+    entity_id: sensor.pm_2_5_state
+    to: "good"
+condition: []
+action:
+  - choose:
+      - conditions:
+          - condition: state
+            entity_id: sensor.pm_2_5_state
+            state: "poor"
+        sequence:
+          - service: switch.turn_on
+            target:
+              entity_id: switch.air_purifier
+      - conditions:
+          - condition: state
+            entity_id: sensor.pm_2_5_state
+            state: "good"
+        sequence:
+          - service: switch.turn_off
+            target:
+              entity_id: switch.air_purifier
+mode: restart
+```
+
+Adjust the entity IDs to match your PM2.5 state sensor and air purifier switch.
+
+## Use VOC and NOx to improve kitchen and cleaning routines
+
+### Example: boost kitchen extraction on VOC/NOx events
+
+This automation runs a kitchen extractor when either VOC or NOx becomes poor.
+
+```yaml
+alias: "ES1 – Kitchen extraction on VOC/NOx"
+trigger:
+  - platform: state
+    entity_id: sensor.voc_state
+    to: "poor"
+  - platform: state
+    entity_id: sensor.nox_state
+    to: "poor"
+condition: []
+action:
+  - service: fan.turn_on
+    target:
+      entity_id: fan.kitchen_extractor
+  - delay: "00:20:00"
+  - service: fan.turn_off
+    target:
+      entity_id: fan.kitchen_extractor
+mode: restart
+```
+
+You can refine this by adding time‑of‑day conditions or by requiring both VOC and NOx to be poor at the same time.
+
+## Quiet hours based on sound level
+
+### Example: alert when it stays noisy at night
+
+This automation notifies you if average sound level stays above a threshold during configured quiet hours.
+
+```yaml
+alias: "ES1 – Quiet hours noise alert"
+trigger:
+  - platform: numeric_state
+    entity_id: sensor.ambient_sound_level_laeq_1min
+    above: 45
+condition:
+  - condition: time
+    after: "22:00:00"
+    before: "07:00:00"
+action:
+  - service: notify.mobile_app_your_phone
+    data:
+      title: "Noise alert"
+      message: "Average sound level is above 45 dB during quiet hours."
+mode: single
+```
+
+Adjust the threshold and times to match your household.
+
+## Blueprint example: simple State‑based alert
+
+You can package the overall `State` alert into a Home Assistant blueprint to reuse it across installs.
+
+```yaml
+blueprint:
+  name: ES1 – State alert
+  description: "Send a notification when ES1 State becomes fair or poor."
+  domain: automation
+  input:
+    es1_state:
+      name: ES1 State entity
+      selector:
+        entity:
+          domain: sensor
+    notify_target:
+      name: Notification service
+      selector:
+        text:
+          multiline: false
+
+  trigger:
+    - platform: state
+      entity_id: !input es1_state
+      to: "fair"
+    - platform: state
+      entity_id: !input es1_state
+      to: "poor"
+  action:
+    - service: !input notify_target
+      data:
+        title: "ES1 air quality alert"
+        message: >-
+          Air quality is now {{ states(es1_state) }} according to ES1.
+  mode: restart
+```
+
+To use this blueprint:
+
+- Save it as a YAML file in your Home Assistant `blueprints/automation` folder.
+- Reload blueprints in Home Assistant.
+- Create a new automation from this blueprint and select your ES1 `State` entity and preferred notification service.
+
+---
+
+These examples are starting points. You can combine ES1 data with presence, weather, and other sensors to build more advanced automations tailored to your home.

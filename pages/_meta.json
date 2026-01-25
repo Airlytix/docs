@@ -9,6 +9,9 @@
   },
   "ha-entities":"Entities",
   "ha-configuration":"Configuration",
+   "automations": "Automation Ideas",
+  "firmware": "Firmware & Updates",
+  "troubleshooting": "Troubleshooting",
   "buy-now": {
     "title": "Buy Now",
     "type": "page",

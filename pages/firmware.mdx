@@ -1,0 +1,62 @@
+# Firmware & updates
+
+ES1 runs ESPHome‑based firmware that can be updated over time. This page explains how firmware updates work and how you can safely keep your device up to date.
+
+## How ES1 firmware is delivered
+
+- ES1 uses ESPHome with over‑the‑air (OTA) updates enabled.
+- The official ES1 configuration is published in the Airlytix configuration repository.
+- The browser‑based installer is linked from the [Connecting to WiFi](/getting-started/wifi) page under the **Using Your Browser** tab.
+
+You do not need to manage YAML or build firmware yourself unless you want to customise ES1 beyond the stock configuration.
+
+## Checking your firmware version
+
+In Home Assistant:
+
+- Open the ES1 device page.
+- Look for the firmware or ESPHome version in the device info panel (this may appear under the ESPHome integration).
+
+You can also see details in the ESPHome logs if you have the ESPHome dashboard connected to your ES1.
+
+## Updating ES1 using the web installer
+
+The simplest way to update ES1 is to re‑run the browser installer described on the [Connecting to WiFi](/getting-started/wifi) page:
+
+1. Connect ES1 to your computer with a USB‑C cable.
+2. Open the **Using Your Browser** tab on the [Connecting to WiFi](/getting-started/wifi) page.
+3. Click the connect button to launch the ESPHome web installer.
+4. Choose the ES1 device (CP2102N USB to UART Bridge Controller) when prompted.
+5. Select the latest ES1 firmware and start the install.
+6. When prompted, enter your WiFi details again.
+
+After a successful flash, ES1 restarts with the new firmware and reconnects to your WiFi.
+
+## Updating over the air (OTA)
+
+If you manage ES1 from ESPHome directly:
+
+- ES1 exposes the ESPHome API and OTA update endpoint.
+- From the ESPHome dashboard, you can push a new build to ES1 without using USB.
+
+This path is intended for advanced users who maintain their own ESPHome environment.
+
+## When to update
+
+- If you are happy with ES1’s behaviour, you do not need to update frequently.
+- Updates are most useful when:
+  - New sensors or metrics are added.
+  - Threshold defaults or algorithms are improved.
+  - Bug fixes for connectivity or stability are released.
+
+Check the Airlytix project release notes or repository for a summary of changes when a new firmware version is published.
+
+## Resetting configuration to defaults
+
+If you have changed many ranges or offsets and want to return to defaults:
+
+- You can manually set thresholds and offsets back to the values in the [Configuration](/ha-configuration) page.
+- Or you can install the latest firmware again using the web installer:
+  - This reapplies the stock configuration, but you will need to re‑enter WiFi details and re‑add ES1 to Home Assistant if the device name changes.
+
+Before making large changes, consider taking a Home Assistant backup so you can restore your automations and settings if needed.
