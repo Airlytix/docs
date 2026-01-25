@@ -1,0 +1,77 @@
+# Frequently asked questions
+
+This page answers some of the most common questions about the Airlytix ES1 and how it works with Home Assistant and ESPHome.
+
+## What is Airlytix ES1?
+
+Airlytix ES1 is an **ESPHome‑based indoor air quality sensor** designed to integrate directly with Home Assistant. It combines multiple high‑quality sensors (CO2, particulate matter, VOC/NOx index, temperature, humidity, sound level, ambient light, and pressure) into a single device that you can monitor and automate entirely locally.
+
+## Do I need any cloud service or app to use ES1?
+
+No. ES1 runs ESPHome on an ESP32 and talks to Home Assistant over your local network. You do not need any vendor cloud, mobile app, or external account. Initial setup uses a browser‑based installer or the device’s own WiFi hotspot, and then everything is managed from Home Assistant and ESPHome.
+
+## How does ES1 integrate with Home Assistant?
+
+ES1 uses the **ESPHome integration** in Home Assistant. Once ES1 is on your WiFi network, Home Assistant will usually discover it automatically. You can then add it from "Settings" → "Devices & Services". ES1 exposes:
+
+- Individual sensor entities (CO2, PM, VOC/NOx, temperature, humidity, sound, light, pressure)
+- Per‑sensor state entities (`good / fair / poor`)
+- A single overall `State` entity
+- An `Indicator Light` entity to control the front LED
+
+See the [Connecting to Home Assistant](/getting-started/ha) and [Entities](/ha-entities) pages for details.
+
+## Is ES1 a good choice if I want a local air quality sensor for Home Assistant?
+
+Yes. ES1 is built specifically for **local‑only** use with ESPHome and Home Assistant. If you are looking for an air quality sensor that:
+
+- Uses high‑quality Sensirion and Infineon sensors
+- Exposes all data as standard Home Assistant entities
+- Lets you inspect and customise the ESPHome YAML configuration
+- Avoids cloud dependencies
+
+then ES1 is a strong fit.
+
+## Can I use ES1 outdoors?
+
+ES1 is designed for indoor use. You can use it in semi‑outdoor locations (such as a covered porch) if it is protected from rain, condensation, and direct spray and can still sense the surrounding air.
+
+For fully outdoor or exposed environments you would typically need an additional weather‑rated enclosure and careful placement to avoid moisture ingress. ES1 is intended as an informational device, not as a certified outdoor or legal‑evidence sound meter.
+
+## How accurate is the CO2 measurement?
+
+ES1 uses a Sensirion SCD4x NDIR CO2 sensor. Under normal indoor conditions, you can expect accuracy on the order of **±(50 ppm + 5% of the reading)**. This is more than sufficient for home comfort and ventilation decisions (for example, knowing when to ventilate a room), but ES1 is not a laboratory calibration instrument.
+
+## Can I use ES1 for noise monitoring or quiet‑hours rules?
+
+Yes. ES1 exposes:
+
+- `Ambient Sound Level (LAeq_1min)` – the average A‑weighted sound level over one minute
+- `Ambient Sound Level (LApeak_1min)` – the loudest A‑weighted peak within that minute
+
+You can use these entities to implement quiet‑hours notifications, track how noisy a space is over time, or build more advanced automations. See the [Automation Ideas](/automations) page for example automations.
+
+## Does ES1 require soldering to assemble?
+
+No. The ESP32 PCB and sensors are fully assembled and tested. If you buy a Kit or Kit (Without Case), you only need to perform mechanical assembly (mounting the PCB and sensor module, inserting the light guide and threaded inserts, and fitting the case). A fully assembled option is also available if you prefer not to assemble anything.
+
+## What happens if my WiFi network or password changes?
+
+If your WiFi details change, you can:
+
+- Use the browser‑based installer again to re‑provision ES1 with the new WiFi, or
+- Start ES1 in hotspot mode and enter the new WiFi credentials via the captive portal.
+
+After ES1 connects to the new network, you may need to update the IP address in Home Assistant if you use the manual ESPHome integration. See the [Connecting to WiFi](/getting-started/wifi) and [Connecting to Home Assistant](/getting-started/ha) pages.
+
+## How do I update the firmware on ES1?
+
+The easiest way is to re‑run the browser‑based ESPHome web installer linked from the [Connecting to WiFi](/getting-started/wifi) page. Connect ES1 via USB‑C, start the installer, select the ES1 device, and flash the latest firmware. ES1 also supports OTA updates from an ESPHome dashboard for advanced users. See the [Firmware & Updates](/firmware) page for more details.
+
+## Where can I find the configuration and source code?
+
+The full ESPHome configuration and related code are available in the Airlytix GitHub repository:
+
+- [Configuration on GitHub](https://github.com/airlytix/configuration)
+
+You can use these files as a reference, fork them for your own builds, or keep track of changes between firmware versions.

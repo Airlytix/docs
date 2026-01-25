@@ -86,12 +86,15 @@ const config: DocsThemeConfig = {
     }
   },
   head: (
-    <>
+  <>
       <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
       <meta name="description" content="Official documentation for Airlytix, the ESPHome-based environmental and air quality sensor for Home Assistant." />
       <meta name="keywords" content="Airlytix, air quality, environmental sensor, Home Assistant, ESPHome, smart home, IoT" />
       <meta name="author" content="Airlytix Team" />
+      <meta name="robots" content="index,follow" />
+
+      <link rel="canonical" href="https://docs.airlytix.io" />
 
       <meta property="og:type" content="website" />
       <meta property="og:title" content="Airlytix Documentation" />
@@ -108,7 +111,40 @@ const config: DocsThemeConfig = {
       <meta property="twitter:description" content="Official documentation for Airlytix, the ESPHome-based environmental and air quality sensor for Home Assistant." />
       <meta property="twitter:image" content="/preview-image.png" />
 
-      
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Organization",
+                "name": "Airlytix",
+                "url": "https://docs.airlytix.io",
+                "logo": "https://docs.airlytix.io/logo.png"
+              },
+              {
+                "@type": "WebSite",
+                "name": "Airlytix Documentation",
+                "url": "https://docs.airlytix.io"
+              },
+              {
+                "@type": "Product",
+                "name": "Airlytix ES1",
+                "brand": "Airlytix",
+                "description": "ESPHome-based indoor air quality sensor with CO2, PM, VOC/NOx, sound, light, pressure, temperature and humidity, designed for deep Home Assistant integration.",
+                "url": "https://lectronz.com/products/airlytix-es1-esphome-smart-air-quality-sensor",
+                "image": "https://docs.airlytix.io/preview-image.png",
+                "isAccessoryOrSparePartFor": {
+                  "@type": "WebSite",
+                  "url": "https://docs.airlytix.io"
+                }
+              }
+            ]
+          })
+        }}
+      />
+
       <script type="module" src="https://unpkg.com/esp-web-tools@9/dist/web/install-button.js?module"></script>
     </>
   ),
