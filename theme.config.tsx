@@ -104,12 +104,14 @@ const config: DocsThemeConfig = {
       <meta property="og:image:type" content="image/png" />
       <meta property="og:image:width" content="1120" />
       <meta property="og:image:height" content="630" />
+      <meta property="og:see_also" content="https://lectronz.com/products/airlytix-es1-esphome-smart-air-quality-sensor" />
 
       <meta property="twitter:card" content="summary_large_image" />
       <meta property="twitter:url" content="https://docs.airlytix.io/" />
       <meta property="twitter:title" content="Airlytix documentation – Airlytix" />
       <meta property="twitter:description" content="Official documentation for Airlytix, the ESPHome-based environmental and air quality sensor for Home Assistant." />
       <meta property="twitter:image" content="/preview-image.png" />
+      <link rel="alternate" href="https://lectronz.com/products/airlytix-es1-esphome-smart-air-quality-sensor" title="Airlytix ES1 – ESPHome Smart Air Quality Sensor" />
 
       <script
         type="application/ld+json"
@@ -127,18 +129,6 @@ const config: DocsThemeConfig = {
                 "@type": "WebSite",
                 "name": "Airlytix Documentation",
                 "url": "https://docs.airlytix.io"
-              },
-              {
-                "@type": "Product",
-                "name": "Airlytix ES1",
-                "brand": "Airlytix",
-                "description": "ESPHome-based indoor air quality sensor with CO2, PM, VOC/NOx, sound, light, pressure, temperature and humidity, designed for deep Home Assistant integration.",
-                "url": "https://lectronz.com/products/airlytix-es1-esphome-smart-air-quality-sensor",
-                "image": "https://docs.airlytix.io/preview-image.png",
-                "isAccessoryOrSparePartFor": {
-                  "@type": "WebSite",
-                  "url": "https://docs.airlytix.io"
-                }
               }
             ]
           })
