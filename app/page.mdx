@@ -1,25 +1,17 @@
 import Image from 'next/image'
 
 # Airlytix documentation
-<>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-
-<Image
-        src="/es1-render.png"
-        alt="Airlytix ES1 Render"
-        width={500}
-        height={500}
-        sizes="(max-width: 300px) 100vw, (max-width: 500px) 50vw, 33vw"
-      />
-
-    </div>
-</>
+<div className="x:mt-6 x:flex x:justify-center">
+  <Image
+    src="/es1-render.png"
+    alt="Airlytix ES1 Render"
+    width={500}
+    height={500}
+    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 66vw, 33vw"
+    className="x:max-w-full x:h-auto x:w-[min(20rem,100%)]"
+  />
+</div>
 Welcome to Airlytix, the ESPHome-based environmental and air quality sensor designed for seamless integration with Home Assistant. Airlytix provides detailed, real-time monitoring of your indoor environment to help you maintain a healthy and comfortable home.
 
 Airlytix is both an at-a-glance indicator and a detailed measurement hub:

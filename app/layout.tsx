@@ -30,18 +30,11 @@ const navbar = (
 
 const footer = (
 	<Footer>
-		<div
-			style={{
-				display: 'flex',
-				justifyContent: 'space-between',
-				alignItems: 'center',
-				width: '100%'
-			}}
-		>
-			<Link href="/cookies" style={{ marginRight: 'auto' }}>
+		<div className="x:flex x:flex-col x:items-center x:gap-3 x:w-full x:md:flex-row x:md:justify-between">
+			<Link href="/cookies" className="x:text-sm x:text-gray-600 x:dark:text-gray-400">
 				Cookie Policy
 			</Link>
-			<div style={{ marginLeft: 'auto' }}>
+			<div className="x:flex x:justify-center x:md:justify-end">
 				<picture>
 					<source
 						srcSet="/made-for-esphome-white-on-black.png"
@@ -52,6 +45,7 @@ const footer = (
 						alt="Made for ESPHome"
 						width={230}
 						height={75}
+						style={{ maxWidth: '100%', height: 'auto' }}
 					/>
 				</picture>
 			</div>
