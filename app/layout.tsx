@@ -15,6 +15,11 @@ export const metadata = {
 		'Official documentation for Airlytix, the ESPHome-based environmental and air quality sensor for Home Assistant.'
 }
 
+export const viewport = {
+	width: 'device-width',
+	initialScale: 1
+}
+
 const navbar = (
 	<Navbar
 		logo={
