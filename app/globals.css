@@ -1,0 +1,6 @@
+@media (max-width: 1023.98px) {
+  .nextra-sidebar,
+  .nextra-toc {
+    display: none !important;
+  }
+}

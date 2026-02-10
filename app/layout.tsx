@@ -1,4 +1,5 @@
 import 'nextra-theme-docs/style-prefixed.css'
+import './globals.css'
 
 import { ReactNode, Suspense } from 'react'
 import { Layout, Navbar, Footer } from 'nextra-theme-docs'
